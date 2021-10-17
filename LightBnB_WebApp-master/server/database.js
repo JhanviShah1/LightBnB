@@ -7,6 +7,7 @@ const pool = new Pool({
   host: "localhost",
   database: "lightbnb",
 });
+pool.on('error', (err, client) => console.log(Object.keys(err)))
 
 /// Users
 
@@ -77,8 +78,30 @@ exports.addUser = addUser;
  * @param {string} guest_id The id of the user.
  * @return {Promise<[{}]>} A promise to the reservations.
  */
-const getAllReservations = function (guest_id, limit = 10) {
-  return getAllProperties(null, 2);
+const getAllReservations = function (guest_id, limit) {
+  //return getAllProperties(null, 2);
+  const query = `SELECT properties.title,properties.parking_spaces,properties.thumbnail_photo_url,properties.number_of_bathrooms,properties.number_of_bedrooms,properties.cost_per_night, property_reviews.rating,reservations.start_date, reservations.end_date FROM reservations 
+  JOIN properties ON 
+properties.id= reservations.property_id
+JOIN users ON
+users.id = properties.owner_id
+JOIN property_reviews
+ON properties.id = property_reviews.property_id
+where reservations.guest_id = $1 
+limit $2`;
+
+  const val = [guest_id,limit];
+  console.log('Query---',query, 'val---',val);
+  return pool
+    .query(query, val)
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows;
+    })
+    .catch((error) => {
+      console.log(Object.values(error));
+      console.log(error.internalQuery);
+    });
 };
 exports.getAllReservations = getAllReservations;
 
@@ -91,6 +114,11 @@ exports.getAllReservations = getAllReservations;
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 const getAllProperties = function (options, limit = 10) {
+  const queryParams = [];
+  
+  
+  
+  
   return pool
     .query(`SELECT * FROM properties LIMIT $1`, [limit])
     .then((result) => {
