@@ -18,6 +18,10 @@ $(() => {
         <label for="search-property-form__minimum-rating">Minimum Rating</label>
         <input type="number" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating">
       </div>
+      <div class="search-property-form__field-wrapper">
+        <label for="search-property-form__owner_id">Owner ID</label>
+        <input type="number" name="owner_id" placeholder="Owner ID" id="search-property-form__owner_id">
+      </div>
 
       <div class="search-property-form__field-wrapper">
           <button>Search</button>
