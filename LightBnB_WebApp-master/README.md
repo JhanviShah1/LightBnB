@@ -41,7 +41,8 @@
   * `apiRoutes.js` and `userRoutes.js` are responsible for any HTTP requests to `/users/something` or `/api/something`. 
   * `json` is a directory that contains a bunch of dummy data in `.json` files.
   * `database.js` is responsible for all queries to the database. It doesn't currently connect to any database, all it does is return data from `.json` files.
-  Dependencies
+  
+Dependencies
 Node.js
 Express
 EJS
@@ -51,5 +52,4 @@ cookie-session
 Getting Started
 Install all dependencies (using the npm install command).
 Run the development web server using the node express_server.js command.
-The URL to access the LigntBnB: http://localhost:8080/ which prompts user for registration. Alternatively it could be accessed at http://localhost:8080/register and http://localhost:8080/login for the registered users.
-
+The URL to access the LigntBnB_WebApp master: http://localhost:3000/
